@@ -1,6 +1,7 @@
 package drive;
 
 import java.io.*;
+import java.util.logging.Logger;
 
 /**
  * Waits for USB devices to be plugged in/unplugged and outputs a message
@@ -11,7 +12,10 @@ import java.io.*;
  */
 public class FindDrive extends Thread {
 
+	private static Logger LOGGER;
+
 	public void run() {
+		LOGGER = Logger.getLogger(this.getClass().toString());
 		String[] letters = new String[] { "A", "B", "C", "D", "E", "F", "G",
 				"H", "I" };
 		File[] drives = new File[letters.length];
@@ -24,7 +28,7 @@ public class FindDrive extends Thread {
 			isDrive[i] = drives[i].canRead();
 		}
 
-		System.out.println("FindDrive: waiting for devices...");
+		LOGGER.info("waiting for devices...");
 
 		// loop indefinitely
 		while (true) {
@@ -35,11 +39,11 @@ public class FindDrive extends Thread {
 				// if the state has changed output a message
 				if (pluggedIn != isDrive[i]) {
 					if (pluggedIn) {
-						System.out.println("Drive " + letters[i]
+						LOGGER.info("Drive " + letters[i]
 								+ " has been plugged in");
 						new Handler(letters[i]).run();
 					} else {
-						System.out.println("Drive " + letters[i]
+						LOGGER.info("Drive " + letters[i]
 								+ " has been unplugged");
 					}
 

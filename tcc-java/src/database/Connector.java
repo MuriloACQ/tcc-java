@@ -1,4 +1,5 @@
 /**
+ * This is a singleton class, you can only have one connection
  * @author Murilo Quadros
  */
 
@@ -15,6 +16,10 @@ public class Connector {
 	static String schema = "public";
 	static String user = "root";
 	static String password = "";
+
+	static Connection connection = null;
+
+	static boolean connected = false;
 
 	public static void setAuthentication(String username, String pass) {
 		user = username;
@@ -33,21 +38,27 @@ public class Connector {
 		return status;
 	}
 
+	public static boolean isConnected() {
+		return connected;
+	}
+
 	public static Connection getConnection() {
-		Connection con = null;
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			String url = "jdbc:mysql://" + server + "/" + schema + "?user="
-					+ user + "&password=" + password;
-			con = (Connection) DriverManager.getConnection(url);
-			status = "connected";
-		} catch (ClassNotFoundException e) {
-			status = e.getMessage();
-		} catch (SQLException e) {
-			status = e.getMessage();
-		} catch (Exception e) {
-			status = e.getMessage();
+		if (!connected) {
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				String url = "jdbc:mysql://" + server + "/" + schema + "?user="
+						+ user + "&password=" + password;
+				connection = (Connection) DriverManager.getConnection(url);
+				status = "connected";
+				connected = true;
+			} catch (ClassNotFoundException e) {
+				status = e.getMessage();
+			} catch (SQLException e) {
+				status = e.getMessage();
+			} catch (Exception e) {
+				status = e.getMessage();
+			}
 		}
-		return con;
+		return connection;
 	}
 }

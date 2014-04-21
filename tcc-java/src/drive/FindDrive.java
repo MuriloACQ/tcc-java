@@ -1,15 +1,15 @@
+/**
+ * Waits for USB devices to be plugged in/unplugged and outputs a message
+ * 
+ * @author Keang
+ * @version 1.0, 26/09/2008
+ */
+
 package drive;
 
 import java.io.*;
 import java.util.logging.Logger;
 
-/**
- * Waits for USB devices to be plugged in/unplugged and outputs a message
- * 
- * 
- * @author Keang
- * @version 1.0, 26/09/2008
- */
 public class FindDrive extends Thread {
 
 	private static Logger LOGGER;

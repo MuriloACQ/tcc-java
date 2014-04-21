@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import core.System;
 import facade.DeviceInfo;
 
 public class Handler extends Thread {
@@ -24,6 +25,7 @@ public class Handler extends Thread {
 			BufferedReader bufferReader = new BufferedReader(new FileReader(path+"root.ini"));
 			LOGGER.info("Device connected");
 			DeviceInfo deviceInfo = new DeviceInfo(bufferReader);
+			new System(deviceInfo);
 		} catch (FileNotFoundException e) {
 			LOGGER.warning("Invalid device: root.ini file does not exist");
 		} catch (IOException e) {

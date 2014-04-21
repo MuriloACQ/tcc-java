@@ -1,7 +1,9 @@
 /**
  * All properties of this class should be String objects, if you want use other types, they have to be converted by getters
+ * The name of the properties should be the same of the properties of root.ini file
  * @author Murilo Quadros
  */
+
 package facade;
 
 import java.io.BufferedReader;

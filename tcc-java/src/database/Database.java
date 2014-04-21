@@ -1,4 +1,5 @@
 /**
+ * Simple database helper
  * @author Murilo Quadros
  */
 

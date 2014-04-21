@@ -13,6 +13,7 @@ import java.lang.reflect.Field;
 public class DeviceInfo {
 	
 	//TODO Complete this class
+	private String system;
 	private String id;
 
 	public DeviceInfo(BufferedReader bufferReader) throws IOException,
@@ -25,6 +26,10 @@ public class DeviceInfo {
 			field.set(this, lineArray[1]);
 		}
 		bufferReader.close();
+	}
+	
+	public String getSystem(){
+		return system;
 	}
 	
 	public String getId(){

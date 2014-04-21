@@ -22,7 +22,7 @@ public class Handler extends Thread {
 	public void run() {
 		LOGGER.info("Handling "+ path);
 		try {
-			BufferedReader bufferReader = new BufferedReader(new FileReader(path+"root.ini"));
+			BufferedReader bufferReader = new BufferedReader(new FileReader(path+"device.info"));
 			LOGGER.info("Device connected");
 			DeviceInfo deviceInfo = new DeviceInfo(bufferReader);
 			new System(deviceInfo);

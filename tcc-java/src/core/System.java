@@ -13,6 +13,7 @@ public class System {
 		LOGGER = Logger.getLogger(this.getClass().toString());
 		this.deviceInfo = deviceInfo;
 		if(isValidDevice()){
+			LOGGER.info("Valid device: starting processing");
 			//TODO get authentication of user, if authentication is ok: run application
 			runApplication();
 		} else {
@@ -22,8 +23,8 @@ public class System {
 	}
 	
 	private boolean isValidDevice(){
-		//TODO verify if properties of deviceInfo are valid
-		return true;
+		return (deviceInfo.getSystem().equals("TDH2014")
+				&& deviceInfo.getId() != null);
 	}
 	
 	private void runApplication(){

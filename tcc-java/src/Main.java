@@ -12,7 +12,7 @@ public class Main {
 		LOGGER.info("Database status: " + Connector.getConnetionStatus());
 		if (Connector.isConnected()) {
 			FindDrive findDrive = new FindDrive();
-			findDrive.run();
+			findDrive.start();
 		} else {
 			LOGGER.warning("Closing application");
 			System.exit(0);

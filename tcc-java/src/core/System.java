@@ -5,26 +5,45 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import model.UserModel;
+import view.Authentication;
+import view.Messager;
+import vo.Auth;
+import vo.User;
 import facade.DeviceInfo;
 import facade.Measure;
 
 public class System {
 
+	public static boolean ABORT;
+
 	private static Logger LOGGER;
 	private DeviceInfo deviceInfo;
+	private User user = null;
 
 	public System(DeviceInfo deviceInfo) {
+		ABORT = false;
 		LOGGER = Logger.getLogger(this.getClass().toString());
 		this.deviceInfo = deviceInfo;
 		if (isValidDevice()) {
 			LOGGER.info("Valid device: starting processing");
-			// TODO get authentication of user, if authentication is ok: run
-			// application
-			runApplication();
+			do {
+				user = authentication();
+				if (ABORT) {
+					break;
+				}
+				if (user == null)
+					Messager.getMessagePanel("Atenção",
+							"É necessário autenticação para prosseguir");
+			} while (user == null);
+			if (!ABORT) {
+				runApplication();
+			}
 		} else {
 			LOGGER.warning("Invalid device: invalid properties");
 		}
@@ -41,6 +60,21 @@ public class System {
 		return true;
 	}
 
+	private User authentication() {
+		Auth auth = Authentication.getAuthPanel();
+		User user = null;
+		if (auth != null) {
+			UserModel userModel = new UserModel();
+			try {
+				user = userModel.getUser(auth);
+			} catch (SQLException e) {
+				user = null;
+				e.printStackTrace();
+			}
+		}
+		return user;
+	}
+
 	private void runApplication() {
 		final File folder = new File(deviceInfo.getPath() + "measures");
 		List<Measure> measures = new ArrayList<Measure>();
@@ -54,7 +88,7 @@ public class System {
 				if (isValidMeasure(measure)) {
 					measures.add(measure);
 				} else {
-					//TODO like exception??
+					// TODO like exception??
 				}
 				// TODO make exception handler, maybe we should use generic
 				// exception

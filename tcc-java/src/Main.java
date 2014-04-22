@@ -7,7 +7,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		Logger LOGGER = Logger.getLogger("Main");
-		Connector.setSchema("tcc");
+		Connector.setServer("mysql.tiagoaveiro.com.br");
+		Connector.setSchema("tiagoaveiro02");
+		Connector.setAuthentication("tiagoaveiro02", "tcctcc");
 		Connector.getConnection();
 		LOGGER.info("Database status: " + Connector.getConnetionStatus());
 		if (Connector.isConnected()) {

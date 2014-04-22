@@ -50,7 +50,7 @@ public class System {
 						new FileReader(fileEntry));
 				Measure measure = new Measure(bufferedReader);
 				measure.setDevice(deviceInfo);
-				measure.setName(fileEntry.getName());
+				measure.setFileName(fileEntry.getName());
 				if (isValidMeasure(measure)) {
 					measures.add(measure);
 				} else {
@@ -74,7 +74,7 @@ public class System {
 		}
 
 		for (Measure measure : measures) {
-			LOGGER.info(measure.getName());
+			LOGGER.info(measure.getFileName());
 		}
 	}
 }

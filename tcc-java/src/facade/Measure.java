@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 public class Measure {
 
 	private DeviceInfo device;
-	private String name;
+	private String fileName;
 	private String customer;
 	private String amount;
 	private String date;
@@ -45,11 +45,11 @@ public class Measure {
 		return date;
 	}
 	
-	public String getName() {
-		return name;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFileName(String name) {
+		this.fileName = name;
 	}
 }

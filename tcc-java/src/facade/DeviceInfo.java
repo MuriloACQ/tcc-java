@@ -15,17 +15,19 @@ public class DeviceInfo {
 	//TODO Complete this class
 	private String system;
 	private String id;
+	
+	private String path;
 
-	public DeviceInfo(BufferedReader bufferReader) throws IOException,
+	public DeviceInfo(BufferedReader bufferedReader) throws IOException,
 			NoSuchFieldException, SecurityException, IllegalArgumentException,
 			IllegalAccessException {
-		while (bufferReader.ready()) {
-			String line = bufferReader.readLine();
+		while (bufferedReader.ready()) {
+			String line = bufferedReader.readLine();
 			String[] lineArray = line.split("=");
 			Field field = this.getClass().getDeclaredField(lineArray[0]);
 			field.set(this, lineArray[1]);
 		}
-		bufferReader.close();
+		bufferedReader.close();
 	}
 	
 	public String getSystem(){
@@ -34,5 +36,13 @@ public class DeviceInfo {
 	
 	public String getId(){
 		return id;
+	}
+	
+	public void setPath(String path){
+		this.path = path;
+	}
+	
+	public String getPath(){
+		return path;
 	}
 }

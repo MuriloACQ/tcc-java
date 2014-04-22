@@ -25,6 +25,7 @@ public class Handler extends Thread {
 			BufferedReader bufferReader = new BufferedReader(new FileReader(path+"device.info"));
 			LOGGER.info("Device connected");
 			DeviceInfo deviceInfo = new DeviceInfo(bufferReader);
+			deviceInfo.setPath(path);
 			new System(deviceInfo);
 		} catch (FileNotFoundException e) {
 			LOGGER.warning("Invalid device: root.ini file does not exist");

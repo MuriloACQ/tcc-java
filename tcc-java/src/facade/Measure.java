@@ -6,7 +6,8 @@ import java.lang.reflect.Field;
 
 public class Measure {
 
-	private String device;
+	private DeviceInfo device;
+	private String name;
 	private String customer;
 	private String amount;
 	private String date;
@@ -18,29 +19,37 @@ public class Measure {
 			String line = bufferedReader.readLine();
 			String[] lineArray = line.split("=");
 			Field field = this.getClass().getDeclaredField(lineArray[0]);
-			//TODO decrypt lineArray[1] to get the original value
+			// TODO decrypt lineArray[1] to get the original value
 			field.set(this, lineArray[1]);
 		}
 		bufferedReader.close();
 	}
-	
-	public void setDevice(String deviceId) {
-		device = deviceId;
+
+	public void setDevice(DeviceInfo device) {
+		this.device = device;
 	}
-	
-	public String getDevice() {
+
+	public DeviceInfo getDevice() {
 		return device;
 	}
-	
+
 	public String getCustomer() {
 		return customer;
 	}
-	
+
 	public String getAmount() {
 		return amount;
 	}
-	
+
 	public String getDate() {
 		return date;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

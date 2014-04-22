@@ -36,6 +36,11 @@ public class System {
 		return (deviceInfo.getSystem().equals("TDH2014") && deviceInfo.getId() != null);
 	}
 
+	// TODO implement this method
+	private boolean isValidMeasure(Measure measure) {
+		return true;
+	}
+
 	private void runApplication() {
 		final File folder = new File(deviceInfo.getPath() + "measures");
 		List<Measure> measures = new ArrayList<Measure>();
@@ -44,8 +49,13 @@ public class System {
 				BufferedReader bufferedReader = new BufferedReader(
 						new FileReader(fileEntry));
 				Measure measure = new Measure(bufferedReader);
-				measure.setDevice(deviceInfo.getId());
-				measures.add(measure);
+				measure.setDevice(deviceInfo);
+				measure.setName(fileEntry.getName());
+				if (isValidMeasure(measure)) {
+					measures.add(measure);
+				} else {
+					//TODO like exception??
+				}
 				// TODO make exception handler, maybe we should use generic
 				// exception
 			} catch (FileNotFoundException e) {
@@ -62,9 +72,9 @@ public class System {
 				e.printStackTrace();
 			}
 		}
-		
-		for (Measure measure : measures){
-			LOGGER.info(measure.getCustomer());
+
+		for (Measure measure : measures) {
+			LOGGER.info(measure.getName());
 		}
 	}
 }

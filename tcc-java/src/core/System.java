@@ -19,14 +19,13 @@ import facade.Measure;
 
 public class System {
 
-	public static boolean ABORT;
+	public static boolean ABORT = false;
 
 	private static Logger LOGGER;
 	private DeviceInfo deviceInfo;
 	private User user = null;
 
 	public System(DeviceInfo deviceInfo) {
-		ABORT = false;
 		LOGGER = Logger.getLogger(this.getClass().toString());
 		this.deviceInfo = deviceInfo;
 		if (isValidDevice()) {

@@ -6,10 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
+import model.MeasureModel;
 import model.UserModel;
 import view.Authentication;
 import view.Messager;
@@ -35,6 +34,7 @@ public class System {
 			do {
 				user = authentication();
 				if (ABORT) {
+					LOGGER.warning("Aborting process");
 					break;
 				}
 				if (user == null)
@@ -44,6 +44,7 @@ public class System {
 			if (!ABORT) {
 				runApplication();
 			}
+			ABORT = false;
 		} else {
 			LOGGER.warning("Invalid device: invalid properties");
 		}
@@ -76,19 +77,29 @@ public class System {
 	}
 
 	private void runApplication() {
+		LOGGER.info("Getting measure files");
 		final File folder = new File(deviceInfo.getPath() + "measures");
-		List<Measure> measures = new ArrayList<Measure>();
+		MeasureModel measureModel = new MeasureModel();
 		for (final File fileEntry : folder.listFiles()) {
+			LOGGER.info("Measure file found: "+fileEntry.getName());
 			try {
 				BufferedReader bufferedReader = new BufferedReader(
 						new FileReader(fileEntry));
+				LOGGER.info("Creating Measure object...");
 				Measure measure = new Measure(bufferedReader);
 				measure.setDevice(deviceInfo);
 				measure.setFileName(fileEntry.getName());
 				if (isValidMeasure(measure)) {
-					measures.add(measure);
+					LOGGER.info("Saving Measure object...");
+					measureModel.insert(measure, user);
+					if(measure.getId() != null){
+						LOGGER.info("Deleting measure file...");
+						fileEntry.delete();
+					}else{
+						LOGGER.info("Fail to save measure object, keeping measure file");
+					}
 				} else {
-					// TODO like exception??
+					LOGGER.info("Invalid measure object, keeping measure file");
 				}
 				// TODO make exception handler, maybe we should use generic
 				// exception
@@ -105,10 +116,6 @@ public class System {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-
-		for (Measure measure : measures) {
-			LOGGER.info(measure.getFileName());
 		}
 	}
 }

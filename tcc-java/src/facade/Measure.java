@@ -6,11 +6,15 @@ import java.lang.reflect.Field;
 
 public class Measure {
 
+	private Integer id;
 	private DeviceInfo device;
 	private String fileName;
+	
+	//no settable properties
 	private String customer;
-	private String amount;
+	private String value;
 	private String date;
+	private String address;
 
 	public Measure(BufferedReader bufferedReader) throws IOException,
 			NoSuchFieldException, SecurityException, IllegalArgumentException,
@@ -37,8 +41,8 @@ public class Measure {
 		return customer;
 	}
 
-	public String getAmount() {
-		return amount;
+	public String getValue() {
+		return value;
 	}
 
 	public String getDate() {
@@ -52,4 +56,17 @@ public class Measure {
 	public void setFileName(String name) {
 		this.fileName = name;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
 }

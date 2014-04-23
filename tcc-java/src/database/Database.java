@@ -36,7 +36,7 @@ public class Database {
 		connection = conn;
 	}
 
-	public int insert(Map<String, String> data, String table) {
+	public Integer insert(Map<String, String> data, String table) {
 		String query = "INSERT INTO " + table + " ";
 		set(data);
 		query += getQuery();

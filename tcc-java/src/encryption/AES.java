@@ -36,6 +36,14 @@ public class AES {
 		}
 		return byteArray;
 	}
+	
+	public static String byteArrayToString(byte[] byteArray){
+		String string = "";
+		for(byte bt : byteArray){
+			string += new Integer(bt) + " ";
+		}
+		return string;
+	}
 
 	private static String addPaddingIfNecessary(String string) {
 		int padding = ((string.length() % 16 - 16) * -1) % 16;

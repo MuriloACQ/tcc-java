@@ -38,7 +38,7 @@ public class System {
 				}
 				if (user == null)
 					Messager.getMessagePanel("Atenção",
-							"É necessário autenticação para prosseguir");
+							"Falha ao auntenticar! É necessário autenticação para prosseguir");
 			} while (user == null);
 			if (!ABORT) {
 				runApplication();
@@ -50,14 +50,21 @@ public class System {
 
 	}
 
+	/**
+	 * Verify if device has a proper configuration set
+	 */
 	// TODO improve this method
 	private boolean isValidDevice() {
 		return (deviceInfo.getSystem().equals("TDH2014") && deviceInfo.getId() != null);
 	}
 
-	// TODO implement this method
+	/**
+	 * Verify if measure object has all mandatory properties
+	 */
 	private boolean isValidMeasure(Measure measure) {
-		return true;
+		return (measure.getValue() != null && measure.getCustomer() != null
+				&& measure.getDate() != null && measure.getAddress() != null && measure
+					.getDevice() != null);
 	}
 
 	private User authentication() {
@@ -80,7 +87,7 @@ public class System {
 		final File folder = new File(deviceInfo.getPath() + "measures");
 		MeasureModel measureModel = new MeasureModel();
 		for (final File fileEntry : folder.listFiles()) {
-			LOGGER.info("Measure file found: "+fileEntry.getName());
+			LOGGER.info("Measure file found: " + fileEntry.getName());
 			try {
 				BufferedReader bufferedReader = new BufferedReader(
 						new FileReader(fileEntry));
@@ -91,10 +98,10 @@ public class System {
 				if (isValidMeasure(measure)) {
 					LOGGER.info("Saving Measure object...");
 					measureModel.insert(measure, user);
-					if(measure.getId() != null){
+					if (measure.getId() != null) {
 						LOGGER.info("Deleting measure file...");
 						fileEntry.delete();
-					}else{
+					} else {
 						LOGGER.info("Fail to save measure object, keeping measure file");
 					}
 				} else {
@@ -113,6 +120,8 @@ public class System {
 			} catch (IllegalAccessException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

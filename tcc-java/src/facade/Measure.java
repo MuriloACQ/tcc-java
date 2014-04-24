@@ -1,8 +1,9 @@
 package facade;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.lang.reflect.Field;
+
+import encryption.AES;
 
 public class Measure {
 
@@ -16,15 +17,13 @@ public class Measure {
 	private String date;
 	private String address;
 
-	public Measure(BufferedReader bufferedReader) throws IOException,
-			NoSuchFieldException, SecurityException, IllegalArgumentException,
-			IllegalAccessException {
+	public Measure(BufferedReader bufferedReader) throws Exception {
 		while (bufferedReader.ready()) {
 			String line = bufferedReader.readLine();
 			String[] lineArray = line.split("=");
 			Field field = this.getClass().getDeclaredField(lineArray[0]);
-			// TODO decrypt lineArray[1] to get the original value
-			field.set(this, lineArray[1]);
+			String decryptedValue = AES.decrypt(AES.stringToByteArray(lineArray[1]));
+			field.set(this, decryptedValue);
 		}
 		bufferedReader.close();
 	}

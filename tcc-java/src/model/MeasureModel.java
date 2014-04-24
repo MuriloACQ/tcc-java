@@ -18,12 +18,13 @@ public class MeasureModel {
 		db = new Database(Connector.getConnection());
 	}
 
+	// Caution: if String contains padding you need to use trim method to remove the trash
 	public void insert(Measure measure, User user) {
 		Map<String, String> data = new HashMap<String, String>();
 		data.put("device", measure.getDevice().getId());
 		data.put("user", user.getId().toString());
 		data.put("customer", measure.getCustomer());
-		data.put("date", measure.getDate());
+		data.put("date", measure.getDate().trim());
 		data.put("value", measure.getValue());
 		data.put("address", measure.getAddress());
 		Integer id = db.insert(data, MEASURE_TABLE);

@@ -28,7 +28,7 @@ public class Measure {
 			String line = bufferedReader.readLine();
 			String[] lineArray = line.split("=");
 			Field field = this.getClass().getDeclaredField(lineArray[0]);
-			String decryptedValue = AES.decrypt(AES.stringToByteArray(lineArray[1]));
+			String decryptedValue = AES.decryptAndVerify(AES.stringToByteArray(lineArray[1]), "TDH");
 			field.set(this, decryptedValue);
 		}
 		bufferedReader.close();

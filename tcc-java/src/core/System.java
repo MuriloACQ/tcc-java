@@ -13,9 +13,9 @@ import model.UserModel;
 import view.Authentication;
 import view.Messager;
 import vo.Auth;
-import vo.User;
-import facade.DeviceInfo;
-import facade.Measure;
+import vo.facade.DeviceInfo;
+import vo.facade.Measure;
+import vo.facade.User;
 
 public class System {
 

@@ -1,4 +1,10 @@
-package facade;
+/**
+ * All no settable properties of this class should be String objects, if you want use other types, they have to be converted by getters
+ * The name of the no settable properties should be the same of the properties of root.ini file
+ * @author Murilo Quadros
+ */
+
+package vo.facade;
 
 import java.io.BufferedReader;
 import java.lang.reflect.Field;

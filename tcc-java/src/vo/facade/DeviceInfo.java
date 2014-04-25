@@ -4,7 +4,7 @@
  * @author Murilo Quadros
  */
 
-package facade;
+package vo.facade;
 
 import java.io.BufferedReader;
 import java.io.IOException;

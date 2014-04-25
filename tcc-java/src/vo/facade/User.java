@@ -1,4 +1,4 @@
-package vo;
+package vo.facade;
 
 import java.sql.SQLException;
 

@@ -3,10 +3,10 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
-import vo.User;
+import vo.facade.Measure;
+import vo.facade.User;
 import database.Connector;
 import database.Database;
-import facade.Measure;
 
 public class MeasureModel {
 

@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import vo.facade.DeviceInfo;
 import core.System;
-import facade.DeviceInfo;
 
 public class Handler extends Thread {
 	

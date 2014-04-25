@@ -7,7 +7,7 @@ import java.util.Map;
 import com.mysql.jdbc.ResultSet;
 
 import vo.Auth;
-import vo.User;
+import vo.facade.User;
 import database.Connector;
 import database.Database;
 

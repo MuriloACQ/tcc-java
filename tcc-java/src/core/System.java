@@ -102,10 +102,10 @@ public class System {
 						LOGGER.info("Deleting measure file...");
 						fileEntry.delete();
 					} else {
-						LOGGER.info("Fail to save measure object, keeping measure file");
+						LOGGER.warning("Fail to save measure object, keeping measure file");
 					}
 				} else {
-					LOGGER.info("Invalid measure object, keeping measure file");
+					LOGGER.warning("Invalid measure object, keeping measure file");
 				}
 				// TODO make exception handler, maybe we should use generic
 				// exception

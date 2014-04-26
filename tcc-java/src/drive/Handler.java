@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import log.Log;
 import vo.facade.DeviceInfo;
 import core.System;
 
@@ -16,7 +17,7 @@ public class Handler extends Thread {
 	
 	public Handler(String path){
 		this.path = path+":/";
-		LOGGER = Logger.getLogger(this.getClass().toString());
+		LOGGER = Log.getLogger(this.getClass().toString());
 	}
 	
 	public void run() {

@@ -2,12 +2,11 @@ package core;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import log.Log;
 import model.MeasureModel;
 import model.UserModel;
 import view.Authentication;
@@ -26,7 +25,7 @@ public class System {
 	private User user = null;
 
 	public System(DeviceInfo deviceInfo) {
-		LOGGER = Logger.getLogger(this.getClass().toString());
+		LOGGER = Log.getLogger(this.getClass().toString());
 		this.deviceInfo = deviceInfo;
 		if (isValidDevice()) {
 			LOGGER.info("Valid device: starting processing");
@@ -76,6 +75,7 @@ public class System {
 				user = userModel.getUser(auth);
 			} catch (SQLException e) {
 				user = null;
+				LOGGER.warning(e.getMessage());
 				e.printStackTrace();
 			}
 		}
@@ -109,19 +109,8 @@ public class System {
 				}
 				// TODO make exception handler, maybe we should use generic
 				// exception
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (NoSuchFieldException e) {
-				e.printStackTrace();
-			} catch (SecurityException e) {
-				e.printStackTrace();
-			} catch (IllegalArgumentException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
 			} catch (Exception e) {
+				LOGGER.warning(e.getMessage());
 				e.printStackTrace();
 			}
 		}

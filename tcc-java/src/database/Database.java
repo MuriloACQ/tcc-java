@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
+
+import log.Log;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSet;
@@ -18,6 +21,7 @@ import com.mysql.jdbc.Statement;
 
 public class Database {
 
+	private static Logger LOGGER;
 	private Connection connection;
 
 	private String queryWhere = "WHERE ";
@@ -33,6 +37,7 @@ public class Database {
 	private boolean limit = false;
 
 	public Database(Connection conn) {
+		LOGGER = Log.getLogger(this.getClass().toString());
 		connection = conn;
 	}
 
@@ -52,6 +57,7 @@ public class Database {
 			}
 			stm.close();
 		} catch (SQLException e) {
+			LOGGER.warning(e.getMessage());
 			e.printStackTrace();
 		}
 		clear();
@@ -68,6 +74,7 @@ public class Database {
 			stm.execute(query);
 			stm.close();
 		} catch (SQLException e) {
+			LOGGER.warning(e.getMessage());
 			e.printStackTrace();
 		}
 		clear();
@@ -85,6 +92,7 @@ public class Database {
 			stm = (Statement) connection.createStatement();
 			resultSet = (ResultSet) stm.executeQuery(getQuery());
 		} catch (SQLException e) {
+			LOGGER.warning(e.getMessage());
 			e.printStackTrace();
 		}
 		clear();
@@ -100,6 +108,7 @@ public class Database {
 			stm.execute(query);
 			stm.close();
 		} catch (SQLException e) {
+			LOGGER.warning(e.getMessage());
 			e.printStackTrace();
 		}
 		clear();
@@ -112,6 +121,7 @@ public class Database {
 			stm = (Statement) connection.createStatement();
 			resultSet = (ResultSet) stm.executeQuery(query);
 		} catch (SQLException e) {
+			LOGGER.warning(e.getMessage());
 			e.printStackTrace();
 		}
 		return resultSet;

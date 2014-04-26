@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import log.Log;
+
 public class FindDrive extends Thread {
 
 	private static Logger LOGGER;
@@ -19,7 +21,7 @@ public class FindDrive extends Thread {
 
 	public void run() {
 		THREAD_MAP = new HashMap<String, Thread>();
-		LOGGER = Logger.getLogger(this.getClass().toString());
+		LOGGER = Log.getLogger(this.getClass().toString());
 		String[] letters = new String[] { "A", "B", "C", "D", "E", "F", "G",
 				"H", "I" };
 		File[] drives = new File[letters.length];

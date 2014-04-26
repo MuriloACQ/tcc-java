@@ -3,19 +3,13 @@ package view;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
-import core.System;
 import vo.Auth;
+import core.System;
 
 public class Authentication {
 
 	public static Auth getAuthPanel() {
-		try {
-			UIManager
-					.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-		} catch (Exception e) {
-		}
 
 		JTextField username = new JTextField();
 		JTextField password = new JPasswordField();

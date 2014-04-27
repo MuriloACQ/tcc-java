@@ -56,6 +56,6 @@ class HtmlFormatter extends Formatter {
 	// This method is called just after the handler using this
 	// formatter is closed
 	public String getTail(Handler h) {
-		return "</table>\n  </PRE></BODY>\n</HTML>\n";
+		return "</table>\n";
 	}
 }

@@ -11,19 +11,31 @@ import database.Connector;
 import drive.FindDrive;
 import exception.BootAlreadyDoneException;
 
+import java.io.IOException;
 import java.lang.System;
+import java.net.ServerSocket;
 
 public class Boot extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	private static Logger LOGGER;
 	private static boolean booted = false;
+	private static final int PORT = 65000;
 
 	public Boot() throws BootAlreadyDoneException{
+		
 		if(booted){
 			throw new BootAlreadyDoneException("You cannot boot application twice");
 		}
+		
+		try {
+			new ServerSocket(PORT);
+		} catch (IOException e1) {
+			System.exit(0);
+		}
+		
 		LOGGER = Log.getLogger(this.getClass().toString());
+		
 		try {
 			UIManager
 					.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");

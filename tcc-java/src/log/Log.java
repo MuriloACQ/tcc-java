@@ -17,11 +17,13 @@ public class Log {
 
 			try {
 				HANDLER = new FileHandler(FOLDER + FILE);
+				HANDLER.setFormatter(new HtmlFormatter());
 			} catch (Exception e) {
 				File dir = new File(FOLDER);
 				dir.mkdir();
 				try {
 					HANDLER = new FileHandler(FOLDER + FILE);
+					HANDLER.setFormatter(new HtmlFormatter());
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -31,4 +33,5 @@ public class Log {
 		LOGGER.addHandler(HANDLER);
 		return LOGGER;
 	}
+
 }

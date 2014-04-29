@@ -5,27 +5,26 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import vo.Auth;
-import core.System;
 
 public class Authentication {
+	
+	private static JTextField username = new JTextField();
+	private static JTextField password = new JPasswordField();
 
 	public static Auth getAuthPanel() {
 
-		JTextField username = new JTextField();
-		JTextField password = new JPasswordField();
-		Object[] message = { "Usuário:", username, "Senha:", password };
-
-		int option = JOptionPane.showConfirmDialog(null, message,
-				"Autenticador", JOptionPane.OK_CANCEL_OPTION);
+		int option = getIntegerOptionAuthPanel();
 		if (option == JOptionPane.OK_OPTION) {
 			return new Auth(username.getText(), password.getText());
 		}
-		int response = Messager.getConfirmPanel("Atenção",
-				"Você dejesa abortar o processo?");
-		if (response == JOptionPane.YES_OPTION) {
-			System.ABORT = true;
-		}
 		return null;
+	}
+	
+	public  static int getIntegerOptionAuthPanel(){
+		
+		Object[] message = { "Usuário:", username, "Senha:", password };
+		return JOptionPane.showConfirmDialog(null, message,
+				"Autenticador", JOptionPane.OK_CANCEL_OPTION);
 	}
 
 }

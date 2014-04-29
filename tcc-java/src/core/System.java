@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+
 import log.Log;
 import model.MeasureModel;
 import model.UserModel;
@@ -18,11 +20,11 @@ import vo.facade.User;
 
 public class System {
 
-	public static boolean ABORT = false;
 
 	private static Logger LOGGER;
 	private DeviceInfo deviceInfo;
 	private User user = null;
+	private boolean abort = false;
 
 	public System(DeviceInfo deviceInfo) {
 		LOGGER = Log.getLogger(this.getClass().toString());
@@ -31,18 +33,17 @@ public class System {
 			LOGGER.info("Valid device: starting processing");
 			do {
 				user = authentication();
-				if (ABORT) {
-					LOGGER.warning("Aborting process");
+				if (abort) {
+					LOGGER.warning("aborting process");
 					break;
 				}
 				if (user == null)
 					Messager.getMessagePanel("Atenção",
 							"Falha ao auntenticar! É necessário autenticação para prosseguir");
 			} while (user == null);
-			if (!ABORT) {
+			if (!abort) {
 				runApplication();
 			}
-			ABORT = false;
 		} else {
 			LOGGER.warning("Invalid device: invalid properties");
 		}
@@ -77,6 +78,12 @@ public class System {
 				user = null;
 				LOGGER.warning(e.getMessage());
 				e.printStackTrace();
+			}
+		}else{
+			int response = Messager.getConfirmPanel("Atenção",
+					"Você dejesa abortar o processo?");
+			if (response == JOptionPane.YES_OPTION) {
+				abort = true;
 			}
 		}
 		return user;

@@ -24,21 +24,22 @@ public class Database {
 	private static Logger LOGGER;
 	private Connection connection;
 
-	private String queryWhere = "WHERE ";
-	private String querySelect = "SELECT ";
-	private String querySet = "SET ";
-	private String queryOrderBy = "ORDER BY ";
-	private String queryLimit = "LIMIT ";
+	private String queryWhere;
+	private String querySelect;
+	private String querySet;
+	private String queryOrderBy;
+	private String queryLimit;
 
-	private boolean where = false;
-	private boolean select = false;
-	private boolean set = false;
-	private boolean orderBy = false;
-	private boolean limit = false;
+	private boolean where;
+	private boolean select;
+	private boolean set;
+	private boolean orderBy;
+	private boolean limit;
 
 	public Database(Connection conn) {
 		LOGGER = Log.getLogger(this.getClass().toString());
 		connection = conn;
+		clear();
 	}
 
 	public Integer insert(Map<String, String> data, String table) {

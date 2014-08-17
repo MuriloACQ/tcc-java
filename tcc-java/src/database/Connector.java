@@ -11,15 +11,15 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Connection;
 
 public class Connector {
-	static String status = "not connected";
-	static String server = "localhost";
-	static String schema = "public";
-	static String user = "root";
-	static String password = "";
+	private static String status = "not connected";
+	private static String server = "localhost";
+	private static String schema = "public";
+	private static String user = "root";
+	private static String password = "";
 
-	static Connection connection = null;
+	private static Connection connection = null;
 
-	static boolean connected = false;
+	private static boolean connected = false;
 
 	public static void setAuthentication(String username, String pass) {
 		user = username;

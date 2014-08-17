@@ -30,6 +30,6 @@ public class Menu extends PopupMenu{
 		     }
 		});
 		
-		super.add(exit);
+		add(exit);
 	}
 }

@@ -3,6 +3,9 @@
  * 
  * @author Keang
  * @version 1.0, 26/09/2008
+ * 
+ * Thread Mapping
+ * @author Murilo Quadros
  */
 
 package drive;

@@ -56,9 +56,9 @@ public class Boot extends JFrame{
 			LOGGER.warning(e.getMessage());
 		}
 
-		Connector.setServer("mysql.tiagoaveiro.com.br");
-		Connector.setSchema("tiagoaveiro02");
-		Connector.setAuthentication("tiagoaveiro02", "tcctcc");
+		Connector.setServer("tiagoaveiro.com.br");
+		Connector.setSchema("tiagoave_tcc");
+		Connector.setAuthentication("tiagoave_tcc", "tcctcc");
 		Connector.getConnection();
 		LOGGER.info("Database status: " + Connector.getConnetionStatus());
 		if (Connector.isConnected()) {

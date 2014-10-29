@@ -23,15 +23,23 @@ public class Measure {
 	private String date;
 	private String address;
 
-	public Measure(BufferedReader bufferedReader) throws Exception {
+	public Measure(BufferedReader bufferedReader, boolean encryption) throws Exception {
 		while (bufferedReader.ready()) {
 			String line = bufferedReader.readLine();
 			String[] lineArray = line.split("=");
 			Field field = this.getClass().getDeclaredField(lineArray[0]);
-			String decryptedValue = AES.decryptAndVerify(AES.stringToByteArray(lineArray[1]), "TDH");
+			String decryptedValue;
+			if(encryption) {
+				decryptedValue = AES.decryptAndVerify(AES.stringToByteArray(lineArray[1]), "TDH");
+			}
+			decryptedValue = lineArray[1];
 			field.set(this, decryptedValue);
 		}
 		bufferedReader.close();
+	}
+	
+	public Measure(BufferedReader bufferedReader) throws Exception {
+		this(bufferedReader, false);
 	}
 
 	public void setDevice(DeviceInfo device) {

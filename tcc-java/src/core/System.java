@@ -20,7 +20,6 @@ import vo.facade.User;
 
 public class System {
 
-
 	private static Logger LOGGER;
 	private DeviceInfo deviceInfo;
 	private User user = null;
@@ -79,7 +78,7 @@ public class System {
 				LOGGER.warning(e.getMessage());
 				e.printStackTrace();
 			}
-		}else{
+		} else {
 			int response = Messager.getConfirmPanel("Atenção",
 					"Você dejesa abortar o processo?");
 			if (response == JOptionPane.YES_OPTION) {
@@ -107,7 +106,13 @@ public class System {
 					measureModel.insert(measure, user);
 					if (measure.getId() != null) {
 						LOGGER.info("Deleting measure file...");
-						fileEntry.delete();
+						if (fileEntry.delete()) {
+							LOGGER.info("Deleted measure file");
+						} else {
+							LOGGER.warning("Fail to delete measure object named "
+									+ fileEntry.getName()
+									+ ", keeping measure file");
+						}
 					} else {
 						LOGGER.warning("Fail to save measure object, keeping measure file");
 					}

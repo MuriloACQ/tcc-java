@@ -57,7 +57,7 @@ public class Boot extends JFrame{
 		}
 
 		Connector.setServer("tiagoaveiro.com.br");
-		Connector.setSchema("tiagoave_tcc");
+		Connector.setSchema("tiagoave_tcc2");
 		Connector.setAuthentication("tiagoave_tcc", "tcctcc");
 		Connector.getConnection();
 		LOGGER.info("Database status: " + Connector.getConnetionStatus());
